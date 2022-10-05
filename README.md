@@ -275,6 +275,17 @@ hi!
 
 - repeat() is a standard library function, not a keyword.
 
+### The in Keyword
+
+- The in keyword tests whether a value is within a range.
+
+- !in checks that a value doesn’t belong to a range.
+
+```
+fun notDigit(ch: Char) =
+ ch !in '0'..'9'
+```
+
 
 
 
