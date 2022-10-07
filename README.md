@@ -286,10 +286,84 @@ fun notDigit(ch: Char) =
  ch !in '0'..'9'
 ```
 
+### Expressions & Statements
 
+- Statements and expressions are the smallest useful fragments of code
+in most programming languages.
 
+- There’s a basic difference: a statement has an effect, but produces no result.
+An expression always produces a result.
 
+- A statement changes state.
 
+- An expression expresses.
+
+## SECTION II: INTRODUCTION TO OBJECTS
+
+- Objects are the foundation for numerous modern languages, including
+Kotlin.
+
+### Constructors
+
+- You initialize a new object by passing information to a constructor.
+
+- Name not accessible outside of class.
+
+```
+class Alien(name: String) {
+ val greeting = "Poor $name!"
+}
+```
+
+- Name accessible outside of class.
+
+- When name is defined as a var or val, it becomes a property and is thus
+accessible outside the constructor. val constructor parameters cannot be
+changed, while var constructor parameters are mutable.
+
+### Packages
+
+- You can name the source-code file anything you like, unlike Java which
+requires the file name to be the same as the class name.
+
+```
+class MutableNameAlien(var name: String)
+class FixedNameAlien(val name: String)
+```
+
+### Lists
+
+- A List is a container, which is an object that holds other objects.
+
+### Variable Argument Lists
+
+- The vararg keyword produces a flexibly-sized argument list.
+
+## SECTION III: USABILITY
+
+- Computer languages differ not so much in what they make possible,
+but in what they make easy—Larry Wall, inventor of the Perl
+language
+
+### Extension Functions
+
+- Suppose you discover a library that does everything you need …
+almost. If it only had one or two additional member functions, it would
+solve your problem perfectly.
+
+### Named & Default Arguments
+
+- You can provide argument names during a function call.
+
+### Overloading
+
+- Languages without support for default arguments often use
+overloading to imitate that feature.
+
+### when Expressions
+
+- A large part of computer programming is performing an action when a
+pattern matches.
 
 
 
