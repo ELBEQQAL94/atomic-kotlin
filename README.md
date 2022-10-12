@@ -365,16 +365,378 @@ overloading to imitate that feature.
 - A large part of computer programming is performing an action when a
 pattern matches.
 
+```
+when (i) { // [1]
+ 1 -> "erste" // [2]
+ 3 -> "dritte"
+ 7 -> "siebte"
+ 8 -> "achte"
+ 20 -> "zwanzigste"
+ else -> numbers.getValue(i) + "te" // [3]
+ }
+```
+
+```
+when (choice) {
+ yes -> trace("Hooray!")
+ no -> trace("Too bad!")
+ }
+```
+
+```
+when (input) { // [1]
+ "up", "u" -> coordinates.y-- // [2]
+ "down", "d" -> coordinates.y++
+ "left", "l" -> coordinates.x--
+ "right", "r" -> { // [3]
+ trace("Moving right")
+ coordinates.x++
+ }
+ "nowhere" -> {} // [4]
+ "exit" -> return // [5]
+ else -> trace("bad input: $input")
+ }
+```
+
+```
+when (setOf(first, second)) {
+ setOf("red", "blue") -> "purple"
+ setOf("red", "yellow") -> "orange"
+ setOf("blue", "yellow") -> "green"
+ else -> "unknown"
+ }
+```
+
+- The solution using when is a more elegant way to choose between several
+options.
+
+### Enumerations
+
+- An enumeration is a collection of names.
+
+```
+enum class Level {
+ Overflow, High, Medium, Low, Empty
+}
+
+fun main() {
+ Level.Medium eq "Medium"
+}
+
+```
+
+```
+enum class Direction(val notation: String) {
+    North("N"),
+    South("S"),
+    East("E"),
+    West("W");
+
+    val opposite: Direction get() =
+        when(this) {
+            North -> South
+            South -> North
+            East -> West
+            West -> East
+        }
+}
+
+fun main() {
+    val direction = North.opposite
+    println(direction)
+}
+```
+
+### Data Classes
+
+- Kotlin reduces repetitive coding.
+
+```
+data class Simple(
+ val arg1: String,
+ var arg2: Int
+)
+fun main() {
+ val s1 = Simple("Hi", 29)
+ val s2 = Simple("Hi", 29)
+ s1 eq "Simple(arg1=Hi, arg2=29)"
+ s1 eq s2
+}
+
+```
+
+- The diffrance between class object and data class object in equality, If you define the same instance of class objects it should have diffrent address in memory, but data class have the same istance and same equality.
+
+### Destructuring Declarations
+
+- Suppose you want to return more than one item from a function, such
+as a result along with some information about that result.
+
+```
+
+fun compute(input: Int): Pair<Int, String> =
+    if(input > 5) {
+        Pair(5, "Low")
+    } else {
+        Pair(10, "High")
+    }
 
 
+fun main() {
+    val result = compute(5)
 
+    println("First Value: ${result.first}")
+    println("Second Value: ${result.second}")
 
+}
 
+```
 
+```
 
+fun main() {
+    val (f, s) = compute(5)
 
+    println("First Value: $f")
+    println("Second Value: $s")
 
+}
 
+```
 
+- data Classes automatically allow destructuring declarations:
 
+```
 
+data class Computation(
+ val data: Int,
+ val info: String
+)
+fun evaluate(input: Int) =
+ if (input > 5)
+ Computation(input * 2, "High")
+ else
+ Computation(input * 2, "Low")
+fun main() {
+ val (value, description) = evaluate(7)
+ value eq 14
+ description eq "High"
+}
+
+```
+
+- Tuples:
+
+```
+
+data class Tuple(
+ val i: Int,
+ val d: Double,
+ val s: String,
+ val b: Boolean,
+ val l: List<Int>
+)
+fun main() {
+ val tuple = Tuple(
+ 1, 3.14, "Mouse", false, listOf())
+ val (i, d, s, b, l) = tuple
+ i eq 1
+ d eq 3.14
+ s eq "Mouse"
+ b eq false
+ l eq listOf()
+ val (_, _, animal) = tuple // [1]
+ animal eq "Mouse"
+}
+
+```
+
+### Nullable Types
+
+- Consider a function that sometimes produces “no result.” When this
+happens, the function doesn’t produce an error per se. Nothing went
+wrong, there’s just “no answer.”
+
+### Safe Calls & the Elvis Operator
+
+- Kotlin provides convenient operations for handling nullability.
+
+- The Elvis operator: `?:`.
+
+### Non-Null Assertions
+
+- A second approach to the problem of nullable types is to have special
+knowledge that the reference in question isn’t null.
+
+- Non null assertion: `!!`.
+
+### Extensions for Nullable Types
+
+- Sometimes it’s not what it looks like.
+
+### Introduction to Generics
+
+- Generics create parameterized types: components that work across
+multiple types.
+
+### Generic Functions
+
+- To define a generic function, specify a generic type parameter in angle
+brackets before the function name:
+
+```
+
+fun <T> identity(arg: T): T = arg
+
+fun main() {
+ identity("Yellow") eq "Yellow"
+ identity(1) eq 1
+ val d: Dog = identity(Dog())
+ d.bark() eq "Ruff!"
+}
+
+```
+
+### Extension Properties
+
+- Just as functions can be extension functions, properties can be
+extension properties.
+
+### break & continue
+
+- break and continue allow you to “jump” within a loop.
+
+## SECTION IV: FUNCTIONAL PROGRAMMING
+
+- The unavoidable price of reliability is simplicity.
+
+### Lambdas
+
+- Lambdas produce compact code that’s easier to understand.
+
+### The Importance of Lambdas
+
+- Lambdas may seem like syntax sugar, but they provide important
+power to your programming.
+
+### Operations on Collections
+
+- An essential aspect of functional languages is the ability to easily
+perform batch operations on collections of objects.
+
+### Member References
+
+- You can pass a member reference as a function argument.
+
+### Higher-Order Functions
+
+- A language supports higher-order functions if its functions can accept
+other functions as arguments and produce functions as return values.
+
+### Manipulating Lists
+
+- Zipping and flattening are two common operations that manipulate
+Lists.
+
+#### Zipping
+
+- zip() combines two Lists by mimicking the behavior of the zipper on your
+jacket, pairing adjacent List elements:
+
+```
+fun main() {
+ val left = listOf("a", "b", "c", "d")
+ val right = listOf("q", "r", "s", "t")
+ left.zip(right) eq // [1]
+ "[(a, q), (b, r), (c, s), (d, t)]"
+ left.zip(0..4) eq // [2]
+ "[(a, 0), (b, 1), (c, 2), (d, 3)]"
+ (10..100).zip(right) eq // [3]
+ "[(10, q), (11, r), (12, s), (13, t)]"
+}
+
+```
+
+```
+
+data class Person(
+ val name: String,
+ val id: Int
+)
+fun main() {
+ val names = listOf("Bob", "Jill", "Jim")
+ val ids = listOf(1731, 9274, 8378)
+ names.zip(ids) { name, id ->
+ Person(name, id)
+ } eq "[Person(name=Bob, id=1731), " +
+ "Person(name=Jill, id=9274), " +
+ "Person(name=Jim, id=8378)]"
+}
+
+```
+
+- To zip two adjacent elements from a single List, use zipWithNext():
+
+```
+
+import atomictest.eq
+fun main() {
+ val list = listOf('a', 'b', 'c', 'd')
+ list.zipWithNext() eq listOf(
+ Pair('a', 'b'),
+ Pair('b', 'c'),
+ Pair('c', 'd'))
+ list.zipWithNext { a, b -> "$a$b" } eq
+ "[ab, bc, cd]"
+}
+
+```
+
+#### Flattening
+
+- flatten() takes a List containing elements that are themselves Lists—a
+List of Lists—and flattens it into a List of single elements:
+
+```
+
+// ManipulatingLists/Flatten.kt
+import atomictest.eq
+fun main() {
+ val list = listOf(
+ listOf(1, 2),
+ listOf(4, 5),
+ listOf(7, 8),
+ )
+ list.flatten() eq "[1, 2, 4, 5, 7, 8]"
+}
+
+```
+
+### Building Maps
+
+- Maps are extremely useful programming tools, and there are numerous
+ways to construct them.
+
+```
+
+data class Person(
+ val name: String,
+ val age: Int
+)
+val names = listOf("Alice", "Arthricia",
+ "Bob", "Bill", "Birdperson", "Charlie",
+ "Crocubot", "Franz", "Revolio")
+val ages = listOf(21, 15, 25, 25, 42, 21,
+ 42, 21, 33)
+fun people(): List<Person> =
+ names.zip(ages) { name, age ->
+ Person(name, age)
+ }
+
+```
+
+### Sequences
+
+- A Kotlin Sequence is like a List, but you can only iterate through a
+Sequence—you cannot index into a Sequence. This restriction
+produces very efficient chained operations.
