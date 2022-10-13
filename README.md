@@ -740,3 +740,35 @@ fun people(): List<Person> =
 - A Kotlin Sequence is like a List, but you can only iterate through a
 Sequence—you cannot index into a Sequence. This restriction
 produces very efficient chained operations.
+
+### Local Functions
+
+- You can define functions anywhere—even inside other functions.
+
+### Folding Lists
+
+- fold() combines all elements of a list, in order, to generate a single
+result.
+
+```
+
+fun main() {
+ val list = listOf(1, 10, 100, 1000)
+ list.fold(0) { sum, n ->
+ sum + n
+ } eq 1111
+}
+
+```
+
+## SECTION V: OBJECT-ORIENTED PROGRAMMING
+
+- … inheritance is a very flexible mechanism. It’s possible and in fact
+fairly common to misuse it, but that’s not a reason to distrust it
+systematically as seems to have become the fashion.—Bertrand
+Meyer
+
+### Interfaces
+
+- An interface describes the concept of a type. It is a prototype for all
+classes that implement the interface.
