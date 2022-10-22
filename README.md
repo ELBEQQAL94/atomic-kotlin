@@ -772,3 +772,117 @@ Meyer
 
 - An interface describes the concept of a type. It is a prototype for all
 classes that implement the interface.
+
+### Secondary Constructors
+
+- When you require several ways to construct an object, named and
+default arguments are usually the easiest approach. Sometimes,
+however, you must create multiple overloaded constructors.
+
+### Inheritance
+
+- Inheritance is a mechanism for creating a new class by reusing and
+modifying an existing class.
+
+```
+// Inheritance/OpenAndFinalClasses.kt
+package inheritance
+// This class can be inherited:
+open class Parent
+class Child : Parent()
+// Child is not open, so this fails:
+// class GrandChild : Child()
+// This class can't be inherited:
+final class Single
+// The same as using 'final':
+class AnotherSingle
+
+```
+
+### Base Class Initialization
+
+- When a class inherits another class, Kotlin guarantees that both classes
+are properly initialized.
+
+### Abstract Classes
+
+- An abstract class is like an ordinary class except one or more
+functions or properties is incomplete: a function lacks a definition or a
+property is declared without initialization. An interface is like an
+abstract class but without state.
+
+### Upcasting
+
+- Taking an object reference and treating it as a reference to its base type
+is called upcasting. The term upcast refers to the way inheritance
+hierarchies are traditionally represented with the base class at the top
+and derived classes fanning out below.
+
+### Polymorphism
+
+- Polymorphism is an ancient Greek term meaning “many forms.” In
+programming, polymorphism means an object or its members have
+multiple implementations.
+
+### Composition
+
+- One of the most compelling arguments for object-oriented
+programming is code reuse.
+
+### Inheritance & Extensions
+
+- Inheritance is sometimes used to add functions to a class as a way to
+reuse it for a new purpose. This can lead to code that is difficult to
+understand and maintain.
+
+### Interface by Convention
+
+- An extension function can be thought of as creating an interface containing
+a single function:
+
+### Class Delegation
+
+- Both composition and inheritance place subobjects inside your new
+class. With composition the subobject is explicit and with inheritance
+it is implicit.
+
+### Downcasting
+
+- Downcasting discovers the specific type of a previously-upcast object.
+
+### Sealed Classes
+
+- To constrain a class hierarchy, declare the superclass sealed.
+
+### Type Checking
+
+- In Kotlin you can easily act on an object based on its type. Normally
+this activity is the domain of polymorphism, so type checking enables
+interesting design choices.
+
+### Nested Classes
+
+- Nested classes enable more refined structures within your objects.
+
+### Objects
+
+- The object keyword defines something that looks roughly like a class.
+However, you can’t create instances of an object—there’s only one.
+This is sometimes called the Singleton pattern.
+
+### Inner Classes
+
+- Inner classes are like nested classes, but an object of an inner class
+maintains a reference to the outer class.
+
+### Companion Objects
+
+- Member functions act on particular instances of a class. Some
+functions aren’t “about” an object, so they don’t need to be tied to that
+object.
+
+## SECTION VI: PREVENTING FAILURE
+
+- If debugging is the process of removing software bugs, then
+programming must be the process of putting them in.—Edsger
+Dijkstra
